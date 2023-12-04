@@ -6,6 +6,8 @@ import booksRoute from "./routes/booksRoute.js";
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
