@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Spinner from "../../components/Spinner";
+import Spinner from "../components/Spinner";
 import { Link } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
@@ -8,7 +8,9 @@ import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
 
 function Home() {
   const [books, setBooks] = useState([]);
+  console.log("books", books);
   const [loading, setLoading] = useState(false);
+  console.log(loading);
 
   useEffect(() => {
     setLoading(true);
@@ -17,6 +19,7 @@ function Home() {
       .then((response) => {
         setBooks(response.data.data);
         setLoading(false);
+        console.log(response.data.data);
       })
       .catch((error) => {
         console.error(error);
@@ -50,8 +53,8 @@ function Home() {
             </tr>
           </thead>
           <tbody>
-            {books.map((book, index) => {
-              <tr key={book.id} className="h-8">
+            {books.map((book, index) => (
+              <tr key={book._id} className="h-8">
                 <td className="border border-slate-700 rounded-md text-center">
                   {index + 1}
                 </td>
@@ -59,12 +62,9 @@ function Home() {
                   {book.title}
                 </td>
                 <td className="border border-slate-700 rounded-md text-center max-md:hidden">
-                  {book.title}
-                </td>
-                <td className="border border-slate-700 rounded-md text-center max-md:hidden">
                   {book.author}
                 </td>
-                <td className="border border-slate-700 rounded-md text-center">
+                <td className="border border-slate-700 rounded-md text-center max-md:hidden">
                   {book.publishYear}
                 </td>
                 <td className="border border-slate-700 rounded-md text-center">
@@ -80,8 +80,8 @@ function Home() {
                     </Link>
                   </div>
                 </td>
-              </tr>;
-            })}
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
